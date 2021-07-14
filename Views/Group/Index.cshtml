@@ -1,0 +1,23 @@
+﻿@model SharkTDS.ViewModels.AllGroupsModel
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Имя</th>
+            <th scope="col">Комментарий</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Group gr in Model.Groups) {
+        <tr>
+            <th scope="row">@gr.Id</th>
+            <td>@gr.Name</td>
+            <td>@gr.Comment</td>
+            <td><a class="btn btn-primary" asp-controller="Group" asp-action="Edit" asp-route-id="@gr.Id" role="button">Редактировать</a></td>
+        </tr>
+        }
+        
+    </tbody>
+</table>
+<a class="btn btn-primary" asp-controller="Group" asp-action="Add" role="button">Добавить группу</a>

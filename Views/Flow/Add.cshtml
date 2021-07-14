@@ -1,0 +1,506 @@
+﻿@model SharkTDS.ViewModels.FlowAddModel
+
+
+
+
+<h1>Редактирование </h1>
+
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="Main-tab" data-toggle="tab" href="#Main" role="tab" aria-controls="Main" aria-selected="true">Main</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="Devices-tab" data-toggle="tab" href="#Devices" role="tab" aria-controls="Devices" aria-selected="false">Devices</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="WAP-tab" data-toggle="tab" href="#WAP" role="tab" aria-controls="WAP" aria-selected="false">WAP</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="Geo-tab" data-toggle="tab" href="#Geo" role="tab" aria-controls="Geo" aria-selected="false">Geo</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="Filters-tab" data-toggle="tab" href="#Filters" role="tab" aria-controls="Filters" aria-selected="false">Filters</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="Bots-tab" data-toggle="tab" href="#Bots" role="tab" aria-controls="Bots" aria-selected="false">Bots</a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" id="Limit-tab" data-toggle="tab" href="#Limit" role="tab" aria-controls="Limit" aria-selected="false">Limit</a>
+    </li>
+</ul>
+
+<form asp-action="Add" asp-controller="Flow" asp-anti-forgery="true">
+
+
+
+
+
+
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <div class="validation" asp-validation-summary="ModelOnly"></div>
+        <div>
+
+
+
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="Main" role="tabpanel" aria-labelledby="Main-tab">
+                    <div class="form-group">
+                        <label asp-for="Name">Название потока</label>
+                        <input type="text" asp-for="Name" />
+                        <span asp-validation-for="Name" />
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="GroupId">ID Группы</label>
+                        <input class="form-control-plaintext" type="number" asp-for="GroupId" value="@ViewBag.id" readonly />
+                        <span asp-validation-for="GroupId" />
+                    </div>
+
+
+
+                    <div class="item">
+                        <span>Тип перенаправления</span>
+                        <select id="TypeRedirect" name="TypeRedirect">
+                            <option value="api">API</option>
+                            <option value="curl">CURL</option>
+                            <option selected="selected" value="http_redirect">HTTP redirect</option>
+                            <option value="iframe">Iframe</option>
+                            <option value="iframe_redirect">Iframe redirect</option>
+                            <option value="iframe_selection">Iframe selection</option>
+                            <option value="js_redirect">JS redirect</option>
+                            <option value="js_selection">JS selection</option>
+                            <option value="javascript">JavaScript</option>
+                            <option value="meta_refresh">Meta refresh</option>
+                            <option value="show_out">Show out</option>
+                            <option value="show_page_html">Show page html</option>
+                            <option value="show_text">Show text</option>
+                            <option value="stop">Stop</option>
+                            <option value="under_construction">Under construction</option>
+                            <option value="403_forbidden">403 Forbidden</option>
+                            <option value="404_not_found">404 Not Found</option>
+                            <option value="500_server_error">500 Server Error</option>
+                        </select>
+                    </div>
+
+                    <div class="item">
+                        <span>Header</span>
+                        <select id="Header" name="Header">
+                            <option selected="selected" value="text/html">text/html</option>
+                            <option value="text/plain">text/plain</option>
+                            <option value="application/javascript">application/javascript</option>
+                        </select>
+                    </div>
+                    <div class="item">
+                        <span>Тип распределения</span>
+                        <select id="TypeDistribution" name="TypeDistribution">
+                            <option selected="selected" value="Rotator">Rotator</option>
+                            <option value="Evenly">Evenly</option>
+                            <option value="Random">Random</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="UrlOrCode">URL / Код / Текст</label>
+                        <textarea class="form-control" type="text" asp-for="UrlOrCode"></textarea>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label asp-for="CurlReplace">Список замен для CURL</label>
+                        <textarea class="form-control" type="text" asp-for="CurlReplace"></textarea>
+                    </div>
+
+
+
+
+                    <div class="form-check">
+                        <input type="checkbox" asp-for="IsActiveFlow" class="form-check-input" id="exampleCheck1">
+                        <label> Поток активен</label><br />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Comment">Комментарий</label>
+                        <textarea class="form-control" type="text" asp-for="Comment"></textarea>
+                    </div>
+
+
+                </div>
+
+
+                <div class="tab-pane fade" id="Devices" role="tabpanel" aria-labelledby="Devices-tab">
+
+                    <div class="item">
+                        <span>Компьютеры</span>
+                        <select id="Сomputer" name="Сomputer">
+                            <option selected="selected" value="0">Выключено</option>
+                            <option value="1">Исключать</option>
+                            <option value="2">Отбирать</option>
+
+
+                        </select>
+                    </div>
+                    <div class="item">
+                        <span>Мобильные телефоны</span>
+                        <select id="Mobile" name="Mobile">
+                            <option selected="selected" value="0">Выключено</option>
+                            <option value="1">Исключать</option>
+                            <option value="2">Отбирать</option>
+
+
+                        </select>
+                    </div>
+
+                    <div class="item">
+                        <span>Планшеты</span>
+                        <select id="Tablet" name="Tablet">
+                            <option selected="selected" value="0">Выключено</option>
+                            <option value="1">Исключать</option>
+                            <option value="2">Отбирать</option>
+
+
+                        </select>
+                    </div>
+
+                </div>
+                <div class="tab-pane fade" id="WAP" role="tabpanel" aria-labelledby="WAP-tab">
+                    <div class="item">
+                        <span>Билайн</span>
+                        <select id="Beeline" name="Beeline">
+                            <option selected="selected" value="0">Выключено</option>
+                            <option value="1">Исключать</option>
+                            <option value="2">Отбирать</option>
+
+
+                        </select>
+                    </div>
+                    <div class="item">
+                        <span>Мегафон</span>
+                        <select id="Megafon" name="Megafon">
+                            <option selected="selected" value="0">Выключено</option>
+                            <option value="1">Исключать</option>
+                            <option value="2">Отбирать</option>
+
+
+                        </select>
+                    </div>
+                    <div class="item">
+                        <span>МТС</span>
+                        <select id="Mts" name="Mts">
+                            <option selected="selected" value="0">Выключено</option>
+                            <option value="1">Исключать</option>
+                            <option value="2">Отбирать</option>
+
+
+                        </select>
+                    </div>
+                    <div class="item">
+                        <span>Теле2</span>
+                        <select id="Tele2" name="Tele2">
+                            <option selected="selected" value="0">Выключено</option>
+                            <option value="1">Исключать</option>
+                            <option value="2">Отбирать</option>
+
+
+                        </select>
+                    </div>
+                    <div class="item">
+                        <span>Азербайджан</span>
+                        <select id="Azerbaijan" name="Azerbaijan">
+                            <option selected="selected" value="0">Выключено</option>
+                            <option value="1">Исключать</option>
+                            <option value="2">Отбирать</option>
+
+
+                        </select>
+                    </div>
+                    <div class="item">
+                        <span>Беларусь</span>
+                        <select id="Belarus" name="Belarus">
+                            <option selected="selected" value="0">Выключено</option>
+                            <option value="1">Исключать</option>
+                            <option value="2">Отбирать</option>
+
+
+                        </select>
+                    </div>
+                    <div class="item">
+                        <span>Казахстан</span>
+                        <select id="Kazakhstan" name="Kazakhstan">
+                            <option selected="selected" value="0">Выключено</option>
+                            <option value="1">Исключать</option>
+                            <option value="2">Отбирать</option>
+
+
+                        </select>
+                    </div>
+                    <div class="item">
+                        <span>Украина</span>
+                        <select id="Ukraine" name="Ukraine">
+                            <option selected="selected" value="0">Выключено</option>
+                            <option value="1">Исключать</option>
+                            <option value="2">Отбирать</option>
+
+
+                        </select>
+                    </div>
+                    <div class="item">
+                        <span>Wap_1</span>
+                        <select id="Wap_1" name="Wap_1">
+                            <option selected="selected" value="0">Выключено</option>
+                            <option value="1">Исключать</option>
+                            <option value="2">Отбирать</option>
+
+
+                        </select>
+                    </div>
+                    <div class="item">
+                        <span>Wap_2</span>
+                        <select id="Wap_2" name="Wap_2">
+                            <option selected="selected" value="0">Выключено</option>
+                            <option value="1">Исключать</option>
+                            <option value="2">Отбирать</option>
+
+
+                        </select>
+                    </div>
+                    <div class="item">
+                        <span>Wap_3</span>
+                        <select id="Wap_3" name="Wap_3">
+                            <option selected="selected" value="0">Выключено</option>
+                            <option value="1">Исключать</option>
+                            <option value="2">Отбирать</option>
+
+
+                        </select>
+                    </div>
+
+                </div>
+                
+                <div class="tab-pane fade" id="Geo" role="tabpanel" aria-labelledby="Geo-tab">
+
+                    <div class="item">
+                        <span>Страны</span>
+                        <select id="IsActiveCountry" name="IsActiveCountry">
+                            <option selected="selected" value="0">Выключено</option>
+                            <option value="1">Исключать</option>
+                            <option value="2">Отбирать</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" type="text" asp-for="Countries"></textarea>
+                    </div>
+
+                    <div class="item">
+                        <span>Города</span>
+                        <select id="IsActiveCity" name="IsActiveCity">
+                            <option selected="selected" value="0">Выключено</option>
+                            <option value="1">Исключать</option>
+                            <option value="2">Отбирать</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" type="text" asp-for="Cities"></textarea>
+                    </div>
+
+                    <div class="item">
+                        <span>Регионы</span>
+                        <select id="IsActiveRegion" name="IsActiveRegion">
+                            <option selected="selected" value="0">Выключено</option>
+                            <option value="1">Исключать</option>
+                            <option value="2">Отбирать</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" type="text" asp-for="Regions"></textarea>
+                    </div>
+
+                </div>
+
+
+
+
+                <div class="tab-pane fade" id="Filters" role="tabpanel" aria-labelledby="Filters-tab">
+                    <div class="item">
+                        <span>Языки браузеров</span>
+                        <select id="IsActiveBrowserLanguage" name="IsActiveBrowserLanguage">
+                            <option selected="selected" value="0">Выключено</option>
+                            <option value="1">Исключать</option>
+                            <option value="2">Отбирать</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" type="text" asp-for="UserAgent"></textarea>
+                    </div>
+                    <div class="item">
+                        <span>Наличие в UserAgent</span>
+                        <select id="IsActiveAvailabilityInUserAgent" name="IsActiveAvailabilityInUserAgent">
+                            <option selected="selected" value="0">Выключено</option>
+                            <option value="1">Исключать</option>
+                            <option value="2">Отбирать</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" type="text" asp-for="UserAgent"></textarea>
+                    </div>
+
+                    <div class="item">
+                        <span>Наличие в Referer</span>
+                        <select id="IsActiveAvailabilityInReferer" name="IsActiveAvailabilityInReferer">
+                            <option selected="selected" value="0">Выключено</option>
+                            <option value="1">Исключать</option>
+                            <option value="2">Отбирать</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" type="text" asp-for="Referer"></textarea>
+                    </div>
+
+                    <div class="item">
+                        <span>Домены</span>
+                        <select id="IsActiveDomainName" name="IsActiveDomainName">
+                            <option selected="selected" value="0">Выключено</option>
+                            <option value="1">Исключать</option>
+                            <option value="2">Отбирать</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" type="text" asp-for="DomainName"></textarea>
+                    </div>
+
+                    <div class="item">
+                        <span>Наличие в ключевом слове</span>
+                        <select id="IsActiveAvailabilityInKeyword" name="IsActiveAvailabilityInKeyword">
+                            <option selected="selected" value="0">Выключено</option>
+                            <option value="1">Исключать</option>
+                            <option value="2">Отбирать</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" type="text" asp-for="Keyword"></textarea>
+                    </div>
+
+                    <div class="item">
+                        <span>Неуникальные посетители</span>
+                        <select id="NonUniqueVisitors" name="NonUniqueVisitors">
+                            <option selected="selected" value="0">Выключено</option>
+                            <option value="1">Исключать</option>
+                            <option value="2">Отбирать</option>
+                        </select>
+                    </div>
+                    <div class="item">
+                        <span>Посетители с пустым Referer</span>
+                        <select id="BlankReferer" name="BlankReferer">
+                            <option selected="selected" value="0">Выключено</option>
+                            <option value="1">Исключать</option>
+                            <option value="2">Отбирать</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="tab-pane fade" id="Bots" role="tabpanel" aria-labelledby="Bots-tab">
+                    <div class="item">
+                        <span>Действие над ботами</span>
+                        <select id="ActionOnBots" name="ActionOnBots">
+                            <option value="api">API</option>
+                            <option value="curl">CURL</option>
+                            <option value="http_redirect">HTTP redirect</option>
+                            <option value="javascript">JavaScript</option>
+                            <option value="meta_refresh">Meta Refresh</option>
+                            <option value="show_out">Show out</option>
+                            <option value="show_page_html">Show page html</option>
+                            <option value="show_text">Show text</option>
+                            <option selected="selected" value="skip">Skip</option>
+                            <option value="stop">Stop</option>
+                            <option value="under_construction">Under construction</option>
+                            <option value="403_forbidden">403 Forbidden</option>
+                            <option value="404_not_found">404 Not Found</option>
+                            <option value="500_server_error">500 Server Error</option>
+                        </select>
+                    </div>
+                    <div class="item">
+                        <span>Header</span>
+                        <select id="HeaderBots" name="HeaderBots">
+                            <option selected="selected" value="text/html">text/html</option>
+                            <option value="text/plain">text/plain</option>
+                            <option value="application/javascript">application/javascript</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="BotsUrlORCode">URL / Код / Текст</label>
+                        <textarea class="form-control" type="text" asp-for="BotsUrlORCode"></textarea>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label asp-for="BotsReplaceToCURL">Список замен для CURL</label>
+                        <textarea class="form-control" type="text" asp-for="BotsReplaceToCURL"></textarea>
+                    </div>
+
+
+                    <div class="form-check">
+                        <input type="checkbox" asp-for="IsActiveSignsBotUserAgent" class="form-check-input" id="exampleCheck1">
+                        <label>Искать признаки ботов в UserAgen</label><br />
+                    </div>
+                    <span>Считать ботом всех, у кого:<</span>
+                    <div class="form-check">
+                        <input type="checkbox" asp-for="EmptyUserAgent" class="form-check-input" id="exampleCheck1">
+                        <label>Пустой UserAgent</label><br />
+                        <input type="checkbox" asp-for="EmptyReferer" class="form-check-input" id="exampleCheck1">
+                        <label>Пустой Referer</label><br />
+                        <input type="checkbox" asp-for="EmptyBrowserLanguage" class="form-check-input" id="exampleCheck1">
+                        <label>Пустой язык браузера</label><br />
+                        <input type="checkbox" asp-for="IPV6" class="form-check-input" id="exampleCheck1">
+                        <label>IPV6</label><br />
+                    </div>
+
+                    <div class="form-check">
+                        <input type="checkbox" asp-for="BlackListUserAgent" class="form-check-input" id="exampleCheck1">
+                        <label>Проверять UserAgent в черном списке</label><br />
+                    </div>
+
+                    <span>Проверять IP в списках:<</span>
+                    <div class="form-check">
+                        <input type="checkbox" asp-for="Baidu" class="form-check-input" id="exampleCheck1">
+                        <label>Baidu</label><br />
+                        <input type="checkbox" asp-for="Bing" class="form-check-input" id="exampleCheck1">
+                        <label>Bing</label><br />
+                        <input type="checkbox" asp-for="Google" class="form-check-input" id="exampleCheck1">
+                        <label>Google</label><br />
+                        <input type="checkbox" asp-for="Mailru" class="form-check-input" id="exampleCheck1">
+                        <label>Mail.ru</label><br />
+                        <input type="checkbox" asp-for="Yahoo" class="form-check-input" id="exampleCheck1">
+                        <label>Yahoo</label><br />
+                        <input type="checkbox" asp-for="Yandex" class="form-check-input" id="exampleCheck1">
+                        <label>Yandex</label><br />
+                        <input type="checkbox" asp-for="Others" class="form-check-input" id="exampleCheck1">
+                        <label>Others</label><br />
+                    </div>
+
+                    <div class="form-check">
+                        <input type="checkbox" asp-for="SaveIpBot" class="form-check-input" id="exampleCheck1">
+                        <label>Сохранять IP ботов</label><br />
+                    </div>
+                </div>
+                
+                <div class="tab-pane fade" id="Limit" role="tabpanel" aria-labelledby="Limit-tab">
+                    <div class="form-check">
+                        <input type="checkbox" asp-for="IsActiveLimit" class="form-check-input" id="exampleCheck1">
+                        <label>Отбирать в данном потоке</label>
+                        <input type="number" asp-for="Visitors" />
+                        <label asp-for="Visitors">посетителей в сутки</label>
+
+                       
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+   
+        <div class="form-group">
+            <input type="submit" value="Добавить" class="btn btn-outline-dark" />
+        </div>
+</form>

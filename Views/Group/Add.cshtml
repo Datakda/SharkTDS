@@ -1,0 +1,142 @@
+﻿@model SharkTDS.ViewModels.GroupAddModel
+
+
+
+
+<form asp-action="Add" asp-controller="Group" asp-anti-forgery="true">
+
+
+
+
+
+
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <div class="validation" asp-validation-summary="ModelOnly"></div>
+        <div>
+            <div class="form-group">
+                <label asp-for="Name">Название группы</label>
+                <input type="text" asp-for="Name" />
+                <span asp-validation-for="Name" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Identifier">Идентификатор группы</label>
+                <input type="text" asp-for="Identifier" />
+                <span asp-validation-for="Identifier" />
+            </div>
+            <div class="item">
+                <span>Тип перенаправления</span>
+                <select id="TypeRedirect" name="TypeRedirect">
+                    <option value="api">API</option>
+                    <option value="curl">CURL</option>
+                    <option selected="selected" value="http_redirect">HTTP redirect</option>
+                    <option value="iframe">Iframe</option>
+                    <option value="iframe_redirect">Iframe redirect</option>
+                    <option value="iframe_selection">Iframe selection</option>
+                    <option value="js_redirect">JS redirect</option>
+                    <option value="js_selection">JS selection</option>
+                    <option value="javascript">JavaScript</option>
+                    <option value="meta_refresh">Meta refresh</option>
+                    <option value="show_out">Show out</option>
+                    <option value="show_page_html">Show page html</option>
+                    <option value="show_text">Show text</option>
+                    <option value="stop">Stop</option>
+                    <option value="under_construction">Under construction</option>
+                    <option value="403_forbidden">403 Forbidden</option>
+                    <option value="404_not_found">404 Not Found</option>
+                    <option value="500_server_error">500 Server Error</option>
+                </select>
+            </div>
+
+
+            <div class="item">
+                <span>Header</span>
+                <select id="Header" name="Header">
+                    <option selected="selected" value="text/html">text/html</option>
+                    <option value="text/plain">text/plain</option>
+                    <option value="application/javascript">application/javascript</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="UrlORCode">URL / Код / Текст</label>
+                <textarea class="form-control" type="text" asp-for="UrlORCode"></textarea>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="ReplaceToCURL">Список замен для CURL</label>
+                <textarea class="form-control" type="text" asp-for="ReplaceToCURL"></textarea>
+            </div>
+
+
+            <div class="item">
+                <span>Geo</span>
+                <select id="GeoBase" name="GeoBase">
+                    <option value="SypexGeo">Sypex Geo</option>
+                    <option value="Cloudflare">Cloudflare</option>
+
+                </select>
+            </div>
+
+            <div class="item">
+                <span>Geo</span>
+                <select id="UniquenessCheck" name="UniquenessCheck">
+                    <option value="Cookies">Cookies</option>
+                    <option value="IP">IP</option>
+
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="TermUniqueness">Срок уникальности</label>
+                <input type="number" asp-for="TermUniqueness" value="24" />
+                <span asp-validation-for="TermUniqueness" />
+            </div>
+
+            <div class="form-check">
+                <input type="checkbox" asp-for="IsActiveBanGroupToTime" class="form-check-input" id="exampleCheck1">
+
+                <label class="form-check-label" for="exampleCheck1">Блокировать если поступило больше</label>
+
+                <input type="number" asp-for="LimitQestion" value="1000" />
+                <span asp-validation-for="LimitQestion" />
+
+
+                <label asp-for="TimePeriod">запросов за</label>
+                <input type="number" asp-for="TimePeriod" value="24" /> <span>часа.</span>
+                <span asp-validation-for="TimePeriod" />
+            </div>
+
+            <div class="form-check">
+                <input type="checkbox" asp-for="SaveKeys" class="form-check-input" id="exampleCheck1">
+                <label> Сохранять ключевые слова</label><br />
+            </div>
+            <div class="form-check">
+                <input type="checkbox" asp-for="SaveKeysOfReferer" class="form-check-input" id="exampleCheck1">
+                <label> Сохранять ключевые слова полученные из Referer</label><br />
+            </div>
+            <div class="form-check">
+                <input type="checkbox" asp-for="GroupIsActive" class="form-check-input" id="exampleCheck1">
+                <label> Группа активна</label><br />
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Comment">Комментарий</label>
+                <textarea class="form-control" type="text" asp-for="Comment"></textarea>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <input type="submit" value="Добавить" class="btn btn-outline-dark" />
+    </div>
+
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
