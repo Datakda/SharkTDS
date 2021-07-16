@@ -1,6 +1,7 @@
 ﻿using SharkTDS.Models;
 using SharkTDS.ViewModels;
 using SharkTDS.ViewModels.Flow;
+using SharkTDS.ViewModels.Setting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -300,7 +301,22 @@ namespace SharkTDS.Service
 
             return flow;
         }
+        public static Setting ConvertSettingIndexModelToSetting(SettingIndexModel model)
+        {
+            Setting setting = new Setting();
+            setting.Id = model.Id;
+            setting.MaxMindKey = model.MaxMindKey;
 
+            return setting;
+        }
+        public static SettingIndexModel ConvertSettingToSettingIndexModel(Setting model)
+        {
+            SettingIndexModel setting = new SettingIndexModel();
+            setting.Id = model.Id;
+            setting.MaxMindKey = model.MaxMindKey;
+
+            return setting;
+        }
 
     }
 }

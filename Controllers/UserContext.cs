@@ -12,6 +12,7 @@ namespace SharkTDS.Controllers
         public DbSet<User> Users { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<Flow> Flows { get; set; }
+        public DbSet<Setting> Settings { get; set; }
         public UserContext(DbContextOptions<UserContext> options)
             : base(options)
         {
