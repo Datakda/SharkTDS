@@ -53,7 +53,7 @@ namespace SharkTDS.Controllers
         public IActionResult Edit(int id)
         {
             Group group = new Group();
-            group = db.Groups.Where(x => x.Id == id).FirstOrDefault();
+            group = db.Groups.Include(u => u.Flows).Where(x => x.Id == id).FirstOrDefault();
            
 
 

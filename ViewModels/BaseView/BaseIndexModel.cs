@@ -21,11 +21,11 @@ namespace SharkTDS.ViewModels.BaseView
             if (!fileInf.Exists)
             {
                 MaxMindTime = null;
-                return;
-                
+
+
             }
 
-            MaxMindTime = fileInf.CreationTime.ToLongDateString();
+            MaxMindTime = fileInf.LastWriteTime.ToLongDateString() + " " + fileInf.LastWriteTime.ToLongTimeString();
 
         }
     }

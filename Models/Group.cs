@@ -24,9 +24,7 @@ namespace SharkTDS.Models
         public bool SaveKeysOfReferer { get; set; }
         public bool GroupIsActive { get; set; }
         public string Comment { get; set; }
-        public virtual List<Flow> Flows { get; set; }
-
-
+        public  List<Flow> Flows { get; set; }
 
     }
 }

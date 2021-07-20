@@ -10,7 +10,7 @@ namespace SharkTDS.Models
 
         public int Id { get; set; }
         public int GroupId { get; set; } 
-        public virtual Group Group { get; set; }
+        public Group Group { get; set; }
         public int Identifier { get; set; }
 
 
@@ -116,7 +116,7 @@ namespace SharkTDS.Models
 
         public int Visitors { get; set; }
 
-
+        public List<Stat> Stats { get; set; }
 
 
 

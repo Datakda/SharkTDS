@@ -27,7 +27,7 @@ namespace SharkTDS
         public void ConfigureServices(IServiceCollection services)
         {
             string connection = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<UserContext>(options => options.UseSqlServer(connection).UseLazyLoadingProxies());
+            services.AddDbContext<UserContext>(options => options.UseSqlServer(connection));
           
             // установка конфигурации подключения
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

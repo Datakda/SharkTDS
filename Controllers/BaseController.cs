@@ -25,6 +25,7 @@ namespace SharkTDS.Controllers
         {
             BaseIndexModel model = new BaseIndexModel();
 
+          
             return View(model);
 
         }
@@ -49,9 +50,15 @@ namespace SharkTDS.Controllers
             {
                 
                 dirs = Directory.GetDirectories(path);
+                FileInfo del = new FileInfo(path + @"\GeoLite2-City.mmdb");
+                if (del.Exists)
+                {
+                    del.Delete();
+                    // альтернатива с помощью класса File
+                    // File.Delete(path);
+                }
 
-                
-                
+
                 FileInfo fileInf = new FileInfo(dirs[0]+ @"\GeoLite2-City.mmdb");
                 if (fileInf.Exists)
                 {

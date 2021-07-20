@@ -16,7 +16,7 @@ namespace SharkTDS.Controllers
 
             }
 
-            return View();
+            return Content("id");
 
 
         }

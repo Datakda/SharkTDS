@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SharkTDS.Migrations
 {
-    public partial class first : Migration
+    public partial class AddStat : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -32,6 +33,19 @@ namespace SharkTDS.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Groups", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Settings",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MaxMindKey = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Settings", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -128,19 +142,66 @@ namespace SharkTDS.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Stats",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FlowID = table.Column<int>(type: "int", nullable: false),
+                    DateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Out = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Keyword = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Redirect = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Device = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Wap = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Region = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    lang = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Uniq = table.Column<bool>(type: "bit", nullable: false),
+                    Bot = table.Column<bool>(type: "bit", nullable: false),
+                    IP = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Domain = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Page = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Referer = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserAgent = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Stats", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Stats_Flows_FlowID",
+                        column: x => x.FlowID,
+                        principalTable: "Flows",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Flows_GroupId",
                 table: "Flows",
                 column: "GroupId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Stats_FlowID",
+                table: "Stats",
+                column: "FlowID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Flows");
+                name: "Settings");
+
+            migrationBuilder.DropTable(
+                name: "Stats");
 
             migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "Flows");
 
             migrationBuilder.DropTable(
                 name: "Groups");
