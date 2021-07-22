@@ -304,6 +304,7 @@ namespace SharkTDS.Service
         public static Setting ConvertSettingIndexModelToSetting(SettingIndexModel model)
         {
             Setting setting = new Setting();
+            setting.TrashUrl = model.TrashUrl;         
             setting.Id = model.Id;
             setting.MaxMindKey = model.MaxMindKey;
 
@@ -312,6 +313,7 @@ namespace SharkTDS.Service
         public static SettingIndexModel ConvertSettingToSettingIndexModel(Setting model)
         {
             SettingIndexModel setting = new SettingIndexModel();
+            setting.TrashUrl = model.TrashUrl;
             setting.Id = model.Id;
             setting.MaxMindKey = model.MaxMindKey;
 

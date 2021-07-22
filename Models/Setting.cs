@@ -11,5 +11,7 @@ namespace SharkTDS.Models
 
         public string MaxMindKey { get; set; }
 
+        public string TrashUrl { get; set; }
+
     }
 }

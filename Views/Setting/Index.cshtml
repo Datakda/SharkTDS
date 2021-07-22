@@ -9,11 +9,21 @@
             <label asp-for="MaxMindKey">MaxMindKey</label>
             <input type="text" asp-for="MaxMindKey" />
             <span asp-validation-for="MaxMindKey" />
-            <input  asp-for="Id" type="hidden" value="@Model.Id">
+
+
+
+            <input asp-for="Id" type="hidden" value="@Model.Id">
+           
+
+        </div>
+        <div class="form-group">
+            <label asp-for="TrashUrl">TrashUrl</label>
+            <input type="text" asp-for="TrashUrl" />
+            <span asp-validation-for="TrashUrl" />
         </div>
 
-        <div class="form-group">
-            <input type="submit" value="Войти" class="btn btn-outline-dark" />
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-outline-dark" />
+            </div>
         </div>
-    </div>
 </form>

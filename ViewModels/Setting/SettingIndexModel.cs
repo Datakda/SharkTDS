@@ -9,8 +9,7 @@ namespace SharkTDS.ViewModels.Setting
     {
         public int Id { get; set; }
         public string MaxMindKey { get; set; }
-
-
+        public string TrashUrl { get; set; }
 
     }
 }

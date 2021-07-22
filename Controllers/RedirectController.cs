@@ -11,6 +11,8 @@ namespace SharkTDS.Controllers
         //Request.Headers["User-Agent"].ToString()
         public IActionResult Index(string id,string key)
         {
+            var ds3 = Request.Cookies.Count();
+
             if (id == null) 
             {
                 return StatusCode(404);
