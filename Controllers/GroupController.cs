@@ -53,11 +53,11 @@ namespace SharkTDS.Controllers
         public IActionResult Edit(int id)
         {
             Group group = new Group();
-            group = db.Groups.Include(u => u.Flows).Where(x => x.Id == id).FirstOrDefault();
-           
+            group = db.Groups.Include(u => u.Flows.OrderBy(x=> x.Identifier)).Where(x => x.Id == id).FirstOrDefault();
 
 
-            var model = ViewModelToModel.ConvertGroupToEditGroupModel(group);
+
+            var model = ViewModelToModel.ConvertGroupToEditGroupModel(group);         
             return View(model);
 
         }

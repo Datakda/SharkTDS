@@ -26,6 +26,16 @@ namespace SharkTDS
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Add detection services container and device resolver service.
+            services.AddDetection();
+            // Needed by Wangkanai Detection
+            services.AddSession(options =>
+                {
+                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+                });
+
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<UserContext>(options => options.UseSqlServer(connection));
           
@@ -51,6 +61,7 @@ namespace SharkTDS
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseDetection();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

@@ -37,9 +37,21 @@ namespace SharkTDS.Controllers
         {
             Flow flow = new Flow();
             flow = ViewModelToModel.ConvertFlowAddModelToFlow(model);
+
+            if (db.Flows.Where(x => x.GroupId == model.GroupId).Count() == 0)
+            {
+                flow.Identifier = 1;
+            }
+
+            else 
+            {
+                flow.Identifier = db.Flows.Where(x => x.GroupId == model.GroupId).Count() + 1;
+            }
+            
             db.Flows.Add(flow);
             db.SaveChanges();
-            return LocalRedirect($"~/Group/Edit/"+model.GroupId);
+            return RedirectToAction("Edit", "Group", new { id = model.GroupId });
+            
            
            
 
@@ -61,8 +73,70 @@ namespace SharkTDS.Controllers
             var result = ViewModelToModel.ConvertFlowEditModelToFlow(model);
             db.Flows.Update(result);
             db.SaveChanges();
-            return LocalRedirect($"~/Group/Edit/" + model.GroupId);
+            return RedirectToAction("Edit", "Group", new { id = model.GroupId });
 
+
+        }
+
+        public IActionResult DeleteFlow(int groupid, int identifier)
+        {
+            var flow = db.Flows.Where(x => x.GroupId == groupid).Where(i=>i.Identifier == identifier).FirstOrDefault();
+            db.Flows.Remove(flow);
+            var flows = db.Flows.Where(x => x.GroupId == groupid).ToList();
+            flows.Remove(flow);          
+            
+            for (int i = 0; i < flows.Count(); ++i) 
+            {
+                flows[i].Identifier = i+1;
+            
+            }
+
+            db.Flows.UpdateRange(flows);
+            db.SaveChanges();
+            return RedirectToAction("Edit", "Group", new { id = groupid });
+
+        }
+
+        public IActionResult IdentifierUp(int groupid, int identifier)
+        {           
+            if (identifier <= 1) 
+            {
+                return RedirectToAction("Edit", "Group", new { id = groupid });
+            }
+            var NeedUp = db.Flows.Where(g => g.GroupId == groupid).Where(i => i.Identifier == identifier).FirstOrDefault();
+            var NeedDown = db.Flows.Where(g => g.GroupId == groupid).Where(i => i.Identifier == identifier-1).FirstOrDefault();
+
+            NeedUp.Identifier -= 1;
+            NeedDown.Identifier += 1;
+            db.Flows.UpdateRange(NeedUp, NeedDown);
+            db.SaveChanges();
+            return RedirectToAction("Edit", "Group", new { id = groupid });
+
+
+        }
+
+
+
+        public IActionResult IdentifierDown(int groupid, int identifier)
+        {
+            var count = db.Flows.Where(x => x.GroupId == groupid).Count();
+
+            if (identifier >= count) 
+            {
+                return RedirectToAction("Edit", "Group", new { id = groupid });
+
+            }
+            var NeedDown = db.Flows.Where(g => g.GroupId == groupid).Where(i => i.Identifier == identifier).FirstOrDefault();
+
+            var NeedUp = db.Flows.Where(g => g.GroupId == groupid).Where(i => i.Identifier == identifier +1).FirstOrDefault();
+
+            NeedDown.Identifier += 1;
+            NeedUp.Identifier -= 1;
+            db.Flows.UpdateRange(NeedUp, NeedDown);
+            db.SaveChanges();
+
+
+            return RedirectToAction("Edit", "Group", new { id = groupid });
 
         }
 

@@ -154,7 +154,8 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
+                 
+                    <th scope="col">Identifier</th>
                     <th scope="col">Имя</th>
                     <th scope="col">Комментарий</th>
                 </tr>
@@ -162,12 +163,18 @@
             <tbody>
                 @foreach (Flow fl in Model.Flows)
                 {
-                    <tr>
-                        <th scope="row">@fl.Id</th>
-                        <td>@fl.Name</td>
-                        <td>@fl.Comment</td>
-                        <td><a class="btn btn-primary" asp-controller="Flow" asp-action="Edit" asp-route-id="@fl.Id" role="button">Редактировать</a></td>
-                    </tr>
+                <tr>
+                  
+                    <td>@fl.Identifier</td>
+                    <td>@fl.Name</td>
+                    <td>@fl.Comment</td>
+                    <td>
+                        <a class="btn btn-primary" asp-controller="Flow" asp-action="Edit" asp-route-id="@fl.Id" role="button">Редактировать</a>
+                        <a class="btn btn-primary" asp-controller="Flow" asp-action="DeleteFlow" asp-route-groupid="@fl.GroupId" asp-route-identifier="@fl.Identifier" role="button">Удалить</a>
+                        <a class="btn btn-primary" asp-controller="Flow" asp-action="IdentifierUp" asp-route-groupid="@fl.GroupId" asp-route-identifier="@fl.Identifier" role="button">Up</a>
+                        <a class="btn btn-primary" asp-controller="Flow" asp-action="IdentifierDown" asp-route-groupid="@fl.GroupId" asp-route-identifier="@fl.Identifier" role="button">Down</a>
+                    </td>
+                </tr>
                 }
 
             </tbody>

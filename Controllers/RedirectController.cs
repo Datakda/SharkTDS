@@ -1,23 +1,40 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using SharkTDS.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Wangkanai.Detection.Services;
 
 namespace SharkTDS.Controllers
 {
     public class RedirectController : Controller
-    {  //https://localhost:44377/redirect?id=ssdsf&key=KEYWORDS
-        //Request.Headers["User-Agent"].ToString()
-        public IActionResult Index(string id,string key)
+    {  //https://localhost:44377/redirect?id=i1
+       //Request.Headers["User-Agent"].ToString()
+       // var com = _detectionService.Device.Type.ToString();
+        private UserContext db;
+        private readonly IDetectionService _detectionService;
+        public RedirectController(UserContext context, IDetectionService detectionService)
         {
-            var ds3 = Request.Cookies.Count();
+            _detectionService = detectionService;
+            db = context;
+        }
 
-            if (id == null) 
+
+        public IActionResult Index(string id, string key)
+        {
+            Group group = db.Groups.Include(u => u.Flows).Where(x => x.Identifier == id).FirstOrDefault();
+            if (!(id != null || group != null) || !group.GroupIsActive )
             {
-                return StatusCode(404);
-                
+                return Redirect(db.Settings.FirstOrDefault().TrashUrl);
+
             }
+
+
+            
+
+           
 
 
 
